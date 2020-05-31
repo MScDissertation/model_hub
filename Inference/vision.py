@@ -12,7 +12,7 @@ if torch.cuda.is_available():
     device = "cuda"
 
 
-def main(img="data/butterfly.jpg", model="vgg19"):
+def main(img="../data/butterfly.jpg", model="vgg19"):
     vision_model = load_model(model)
     if vision_model == None:
         print("Check that model name")
@@ -62,9 +62,9 @@ def get_labels():
         return data
 
 
-def predict(vgg, image_tensor, labels):
+def predict(model, image_tensor, labels):
     input_image = image_tensor.to(device)
-    outputs = vgg(input_image).detach().to(device)
+    outputs = model(input_image).detach().to(device)
     highest_pred = torch.argmax(outputs)
     tada = labels[str(highest_pred.item())]
     return tada

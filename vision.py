@@ -26,7 +26,7 @@ def main(img="data/butterfly.jpg", model="vgg19"):
     labels = get_labels()
     print("__________Labels loaded__________\n\n")
     label = predict(vision_model, image_tensor, labels)
-    print("My guess is {}".format(label))
+    print("My guess is {} \n\n".format(label))
 
 
 def load_model(model_name):

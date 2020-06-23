@@ -4,6 +4,9 @@ from vision import get_labels, load_model, transform_image, predict
 import torchvision.models as models
 import subprocess
 from PIL import Image
+import datetime
+import os
+import uuid
 
 device = "cpu"
 if torch.cuda.is_available():
@@ -26,31 +29,46 @@ def stopNvidiaSmi():
     subprocess.run(['pkill', 'nvidia-smi'])
 
 
+def prep_file(fileName):
+    path = '../logs/' + fileName
+    if os.path.exists(path):
+        id = uuid.uuid4()
+        renameFile = '../logs/' + fileName.split(".")[0] + str(id) + '.csv'
+        os.rename(path, renameFile)
+    with open(path, "w") as file1:
+        row = "model" + "," + "start_time" + "," + "end_time" + "\n"
+        file1.writelines(row)
+
+
 def main():
-    # modelList = ['alexnet', 'densenet121','densenet161','densenet169','densenet201','googlenet',
-    # 'inception_v3','mobilenet_v2','resnet101','shufflenet_v2_x2_0','mnasnet1_0','squeezenet1_0',
-    # 'squeezenet1_1','wide_resnet50_2','wide_resnet101_2','vgg11','vgg11_bn','vgg13','vgg13_bn',
-    # 'vgg16',
-    # 'vgg19','vgg19_bn']
+    fileName = 'pm.csv'
+    prep_file(fileName)
+    pmfile = '../logs/' + fileName
     model_list = get_vision_models()
     for model in model_list:
-        modelrun(model)
+        modelrun(model, pmfile)
 
 
-def modelrun(model):
+def modelrun(model, pmfile):
     vision_model = load_model(model)
     print("---- {} loaded -----".format(model))
     labels = get_labels()
     img = "../data/butterfly.jpg"
-    makelogFile(model)
+    # makelogFile(model)
+
+    start_time = datetime.datetime.now()
     print("Beginning inference")
     for i in range(5000):
         image = Image.open(img)
         # image.show()
         image_tensor = transform_image(image)
         label = predict(vision_model, image_tensor, labels)
-        #print("My guess is {} \n\n".format(label))
-    stopNvidiaSmi()
+        # print("My guess is {} \n\n".format(label))
+    # stopNvidiaSmi()
+    end_time = datetime.datetime.now()
+    row = f"{model},{start_time},{end_time}"
+    with open(pmfile, "a") as file1:
+        file1.writelines(row)
     print("We're done with {}".format(model))
 
 

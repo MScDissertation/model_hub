@@ -46,7 +46,8 @@ def main():
     pmfile = '../logs/' + fileName
     model_list = get_vision_models()
     for model in model_list:
-        modelrun(model, pmfile)
+        if model != 'inception_v3':
+            modelrun(model, pmfile)
 
 
 def modelrun(model, pmfile):

@@ -1,11 +1,14 @@
 import torch
 import torchvision
-import load_model, get_labels from vision
+from vision import get_labels, load_model, transform_image, predict
 import torchvision.models as models
+import subprocess
+from PIL import Image
 
 device = "cpu"
 if torch.cuda.is_available():
     device = "cuda"
+
 
 def get_vision_models():
     # __dict__ This is the dictionary containing the module’s symbol table.
@@ -14,7 +17,14 @@ def get_vision_models():
                          and callable(models.__dict__[name]))
     return model_names
 
+
 def makelogFile(name):
+    subprocess.run(['sh', 'nvidiasmi.sh', name, '&'])
+
+
+def stopNvidiaSmi():
+    subprocess.run(['pkill', 'nvidia-smi'])
+
 
 def main():
     # modelList = ['alexnet', 'densenet121','densenet161','densenet169','densenet201','googlenet',
@@ -26,16 +36,21 @@ def main():
     for model in model_list:
         modelrun(model)
 
+
 def modelrun(model):
-    makelogFile(model)
     vision_model = load_model(model)
+    print("---- {} loaded -----".format(model))
     labels = get_labels()
+    img = "../data/butterfly.jpg"
+    makelogFile(model)
     for i in range(10000):
         image = Image.open(img)
         # image.show()
         image_tensor = transform_image(image)
         label = predict(vision_model, image_tensor, labels)
         #print("My guess is {} \n\n".format(label))
+    stopNvidiaSmi()
+
 
 if __name__ == "__main__":
     main()

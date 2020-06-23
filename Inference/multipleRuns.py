@@ -19,7 +19,7 @@ def get_vision_models():
 
 
 def makelogFile(name):
-    subprocess.run(['sh', 'nvidiasmi.sh', name, '&'])
+    subprocess.Popen(['sh', 'nvidiasmi.sh', name])  # make it non blocking
 
 
 def stopNvidiaSmi():
@@ -43,6 +43,7 @@ def modelrun(model):
     labels = get_labels()
     img = "../data/butterfly.jpg"
     makelogFile(model)
+    print("Beginning inference")
     for i in range(10000):
         image = Image.open(img)
         # image.show()
@@ -50,6 +51,7 @@ def modelrun(model):
         label = predict(vision_model, image_tensor, labels)
         #print("My guess is {} \n\n".format(label))
     stopNvidiaSmi()
+    print("We're done with {}".format(model))
 
 
 if __name__ == "__main__":

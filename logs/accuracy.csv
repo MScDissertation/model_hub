@@ -15,10 +15,10 @@ resnet101,22.63,6.44
 resnet152,21.69,5.94
 squeezenet1_0,41.9,19.58
 squeezenet1_1,41.81,19.38
-densenet_121,25.35,7.83
-densenet_169,24,7
-densenet_201,22.8,6.43
-densenet_161,22.35,6.2
+densenet121,25.35,7.83
+densenet169,24,7
+densenet201,22.8,6.43
+densenet161,22.35,6.2
 inception_v3,22.55,6.44
 googlenet,30.22,10.47
 shufflenet_v2_x2_0,30.64,11.68

@@ -19,7 +19,7 @@ def main(img="../data/butterfly.jpg", model="vgg19"):
         return
     print("________ Model ready ____________")
     image = Image.open(img)
-    image.show()
+    # image.show()
     image_tensor = transform_image(image)
     print("Image dimension: {}".format(image_tensor.size()))
     print("_________________________________")

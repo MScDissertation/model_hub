@@ -11,6 +11,6 @@ fi
 
 echo $new_fileName
 
-nvidia-smi -l 1 -f ${folder_name}/${new_fileName} \
+nvidia-smi -l 0.1 -f ${folder_name}/${new_fileName} \
  --format=csv,nounits \
  --query-gpu=timestamp,utilization.gpu,utilization.memory,memory.total,memory.used,memory.free,temperature.gpu,power.draw,pstate

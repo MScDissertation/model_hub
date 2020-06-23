@@ -44,7 +44,7 @@ def modelrun(model):
     img = "../data/butterfly.jpg"
     makelogFile(model)
     print("Beginning inference")
-    for i in range(10000):
+    for i in range(5000):
         image = Image.open(img)
         # image.show()
         image_tensor = transform_image(image)

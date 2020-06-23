@@ -66,7 +66,7 @@ def modelrun(model, pmfile):
         # print("My guess is {} \n\n".format(label))
     # stopNvidiaSmi()
     end_time = datetime.datetime.now()
-    row = f"{model},{start_time},{end_time}"
+    row = f"{model},{start_time},{end_time}\n"
     with open(pmfile, "a") as file1:
         file1.writelines(row)
     print("We're done with {}".format(model))

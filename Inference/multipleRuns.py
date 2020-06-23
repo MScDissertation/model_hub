@@ -52,25 +52,26 @@ def main():
 
 def modelrun(model, pmfile):
     vision_model = load_model(model)
-    print("---- {} loaded -----".format(model))
-    labels = get_labels()
-    img = "../data/butterfly.jpg"
-    # makelogFile(model)
+    if vision_model != None:
+        print("---- {} loaded -----".format(model))
+        labels = get_labels()
+        img = "../data/butterfly.jpg"
+        # makelogFile(model)
 
-    start_time = datetime.datetime.now()
-    print("Beginning inference")
-    for i in range(5000):
-        image = Image.open(img)
-        # image.show()
-        image_tensor = transform_image(image)
-        label = predict(vision_model, image_tensor, labels)
-        # print("My guess is {} \n\n".format(label))
-    # stopNvidiaSmi()
-    end_time = datetime.datetime.now()
-    row = f"{model},{start_time},{end_time}\n"
-    with open(pmfile, "a") as file1:
-        file1.writelines(row)
-    print("We're done with {}".format(model))
+        start_time = datetime.datetime.now()
+        print("Beginning inference")
+        for i in range(5000):
+            image = Image.open(img)
+            # image.show()
+            image_tensor = transform_image(image)
+            label = predict(vision_model, image_tensor, labels)
+            # print("My guess is {} \n\n".format(label))
+        # stopNvidiaSmi()
+        end_time = datetime.datetime.now()
+        row = f"{model},{start_time},{end_time}\n"
+        with open(pmfile, "a") as file1:
+            file1.writelines(row)
+        print("We're done with {}".format(model))
 
 
 if __name__ == "__main__":

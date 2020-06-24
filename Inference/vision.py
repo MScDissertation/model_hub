@@ -35,6 +35,7 @@ def load_model(model_name):
         return model
     except:
         print('Can\'t fetch {}'.format(model_name))
+        return None
 
 
 def transform_image(image):

@@ -1,0 +1,11 @@
+#! bin/bash
+
+curl https://download.pytorch.org/tutorial/hymenoptera_data.zip --output /media/data/hymenoptera_data.zip
+
+curl http://images.cocodataset.org/zips/train2017.zip --output coco/train.zip
+cd coco
+unzip train.zip
+
+
+curl http://images.cocodataset.org/zips/val2017.zip --output coco/val.zip
+curl http://images.cocodataset.org/zips/test2017.zip --output coco/test.zip

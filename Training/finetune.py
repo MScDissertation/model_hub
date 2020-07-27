@@ -160,11 +160,25 @@ def visualize_model(model, num_images=6):
         model.train(mode=was_training)
 
 
-model_ft = models.resnet18(pretrained=True)
-num_ftrs = model_ft.fc.in_features
+model_ft = models.vgg16(pretrained=True)
+# num_ftrs = model_ft.fc.in_features
 # Here the size of each output sample is set to 2.
 # Alternatively, it can be generalized to nn.Linear(num_ftrs, len(class_names)).
-model_ft.fc = nn.Linear(num_ftrs, len(class_names))
+num_ftrs = model_ft.classifier[0].out_features
+
+# list all the modules in the model's classifier
+mod = list(model_ft.classifier.children())
+# Pop the last module and add 2 modules
+mod.pop()
+mod.append(nn.Linear(num_ftrs, 100))
+mod.append(nn.Linear(100, len(class_names)))
+
+# Replace vgg16's classifier with this new classifier
+new_classifier = nn.Sequential(*mod)
+model_ft.classifier = new_classifier
+
+
+# model_ft.fc = nn.Linear(num_ftrs, len(class_names))
 
 model_ft = model_ft.to(device)
 

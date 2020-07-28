@@ -41,18 +41,21 @@ def main():
     row = f"start_time={start_time}\n"
     with open(timefile, "a") as file1:
         file1.writelines(row)
-    end_time = datetime.datetime.now()
-    row = f"end_time={end_time}\n"
 
     data_dir = '/media/data/shivangi/coco'
-    image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
-                                              data_transforms[x])
-                      for x in ['train', 'val']}
-    dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=4,
+    coco = {}
+    coco['train'] = datasets.CocoDetection(root=data_dir+'/train',
+                                           annFile=data_dir + "/annotations/instances_train2017.json", transforms=data_transforms['train'])
+    coco['val'] = datasets.CocoDetection(root=data_dir + '/val',
+                                         annFile=data_dir+"annotations/instances_val2017.json", transforms=data_transforms['val'])
+    # image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
+    #                                           data_transforms[x])
+    #                   for x in ['train', 'val']}
+    dataloaders = {x: torch.utils.data.DataLoader(coco[x], batch_size=4,
                                                   shuffle=True, num_workers=4)
                    for x in ['train', 'val']}
-    dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
-    class_names = image_datasets['train'].classes
+    dataset_sizes = {x: len(coco[x]) for x in ['train', 'val']}
+    class_names = coco['train'].classes
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 

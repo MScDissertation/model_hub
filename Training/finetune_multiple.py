@@ -21,8 +21,8 @@ def main():
     prep_file(fileName)
     filepath = '../logs/' + fileName
     models = ["resnet18", "resnet34", "resnet50", "resnet101", "resnet152", "alexnet",
-            "vgg11", "vgg11_bn", "vgg13", "vgg13_bn", "vgg16", "vgg16_bn", "vgg19", "vgg19_bn",
-            "squeezenet", "densenet121", "densenet161", "densenet169", "densenet201"]
+              "vgg11", "vgg11_bn", "vgg13", "vgg13_bn", "vgg16", "vgg16_bn", "vgg19", "vgg19_bn",
+              "squeezenet", "densenet121", "densenet161", "densenet169", "densenet201"]
     for model_name in models:
         model_run(model_name, filepath)
 
@@ -374,7 +374,7 @@ def initialize_model(model_name, num_classes, feature_extract, use_pretrained=Tr
         model_ft.classifier = nn.Linear(num_ftrs, num_classes)
         input_size = 224
 
-     elif model_name == "densenet161":
+    elif model_name == "densenet161":
         """ Densenet161
         """
         model_ft = models.densenet161(pretrained=use_pretrained)
@@ -383,7 +383,7 @@ def initialize_model(model_name, num_classes, feature_extract, use_pretrained=Tr
         model_ft.classifier = nn.Linear(num_ftrs, num_classes)
         input_size = 224
 
-     elif model_name == "densenet169":
+    elif model_name == "densenet169":
         """ Densenet169
         """
         model_ft = models.densenet169(pretrained=use_pretrained)
@@ -392,7 +392,7 @@ def initialize_model(model_name, num_classes, feature_extract, use_pretrained=Tr
         model_ft.classifier = nn.Linear(num_ftrs, num_classes)
         input_size = 224
 
-     elif model_name == "densenet201":
+    elif model_name == "densenet201":
         """ densenet201
         """
         model_ft = models.densenet201(pretrained=use_pretrained)

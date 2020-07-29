@@ -114,7 +114,7 @@ def model_run(model_name, filepath):
                                  num_epochs=num_epochs, is_inception=(model_name == "inception"))
 
     end_time = datetime.datetime.now()
-    row = f"{model},{start_time},{end_time}\n"
+    row = f"{model_name},{start_time},{end_time}\n"
     with open(pmfile, "a") as file1:
         file1.writelines(row)
     print("We're done with {}".format(model_name))

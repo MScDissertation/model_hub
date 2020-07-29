@@ -9,3 +9,5 @@ unzip train.zip
 
 curl http://images.cocodataset.org/zips/val2017.zip --output coco/val.zip
 curl http://images.cocodataset.org/zips/test2017.zip --output coco/test.zip
+
+curl http://images.cocodataset.org/annotations/annotations_trainval2017.zip --output annotations_trainval2017.zip

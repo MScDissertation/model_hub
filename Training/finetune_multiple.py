@@ -22,7 +22,7 @@ def main():
     filepath = '../logs/' + fileName
     models = ["resnet18", "resnet34", "resnet50", "resnet101", "resnet152", "alexnet",
               "vgg11", "vgg11_bn", "vgg13", "vgg13_bn", "vgg16", "vgg16_bn", "vgg19", "vgg19_bn",
-              "squeezenet", "densenet121", "densenet161", "densenet169", "densenet201"]
+              "squeezenet1_0", "squeezenet1_1", "densenet121", "densenet161", "densenet169", "densenet201"]
     for model_name in models:
         model_run(model_name, filepath)
 
@@ -355,10 +355,20 @@ def initialize_model(model_name, num_classes, feature_extract, use_pretrained=Tr
         model_ft.classifier[6] = nn.Linear(num_ftrs, num_classes)
         input_size = 224
 
-    elif model_name == "squeezenet":
-        """ Squeezenet
+    elif model_name == "squeezenet1_0":
+        """ squeezenet1_0
         """
         model_ft = models.squeezenet1_0(pretrained=use_pretrained)
+        set_parameter_requires_grad(model_ft, feature_extract)
+        model_ft.classifier[1] = nn.Conv2d(
+            512, num_classes, kernel_size=(1, 1), stride=(1, 1))
+        model_ft.num_classes = num_classes
+        input_size = 224
+
+    elif model_name == "squeezenet1_1":
+        """ squeezenet1_1
+        """
+        model_ft = models.squeezenet1_1(pretrained=use_pretrained)
         set_parameter_requires_grad(model_ft, feature_extract)
         model_ft.classifier[1] = nn.Conv2d(
             512, num_classes, kernel_size=(1, 1), stride=(1, 1))

@@ -115,7 +115,7 @@ def model_run(model_name, filepath):
 
     end_time = datetime.datetime.now()
     row = f"{model_name},{start_time},{end_time}\n"
-    with open(pmfile, "a") as file1:
+    with open(filepath, "a") as file1:
         file1.writelines(row)
     print("We're done with {}".format(model_name))
 

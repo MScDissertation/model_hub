@@ -110,8 +110,8 @@ def model_run(model_name, filepath):
     start_time = datetime.datetime.now()
 
     # Train and evaluate
-    model_ft, hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft,
-                                 num_epochs=num_epochs, is_inception=(model_name == "inception"), device)
+    model_ft, hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device,
+                                 num_epochs=num_epochs, is_inception=(model_name == "inception"))
 
     end_time = datetime.datetime.now()
     row = f"{model},{start_time},{end_time}\n"
@@ -131,7 +131,7 @@ def prep_file(fileName):
         file1.writelines(row)
 
 
-def train_model(model, dataloaders, criterion, optimizer, num_epochs=25, is_inception=False, device):
+def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25, is_inception=False):
     since = time.time()
 
     val_acc_history = []

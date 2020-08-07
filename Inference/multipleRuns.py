@@ -61,7 +61,7 @@ def modelrun(model, pmfile):
 
             start_time = datetime.datetime.now()
             print("Beginning inference")
-            for i in range(1000):
+            for i in range(10000):
                 image = Image.open(img)
                 # image.show()
                 image_tensor = transform_image(image)

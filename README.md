@@ -1,31 +1,39 @@
-# pytorch models
+# Training and inference on computer vision models
 
-https://pytorch.org/docs/master/torchvision/models.html#classification
+<https://pytorch.org/docs/master/torchvision/models.html#classification>
 
-Get FLOPs/FPOs using
+`pip install -r requirements.txt`
 
-https://github.com/Swall0w/torchstat
+## Get FLOPs
 
-https://github.com/Lyken17/pytorch-OpCounter
+`python models.py`
 
-pip install -r requirements.txt
+Get FLOPs/FPOs using <https://github.com/Lyken17/pytorch-OpCounter>
 
-### Get FPO
+## Get power data for Inference
 
-python models.py
+`cd Inference`  
+`python multipleRuns.py`
+
+## Extras
 
 ### Run inference on one model
 
-cd Inference
-python vision.py --path imagepath --model modelname
+`cd Inference`  
+`python vision.py --path imagepath --model modelname`
 
-E.g. python vision.py --path "../data/butterfly.jpg" --model "alexnet"
+E.g. `python vision.py --path "../data/butterfly.jpg" --model "alexnet"`
 
-## Get power data
-
-python multipleRuns.py
-
-#### run tests
+<!-- #### run tests
 
 python -m unittest test_vision.py
-python test_vision.py
+python test_vision.py -->
+
+## Get data from training
+
+Download folder of images to train on  
+`curl https://download.pytorch.org/tutorial/hymenoptera_data.zip --output /media/data/hymenoptera_data.zip`
+
+Train models  
+`cd Training`  
+`python finetune_multiple.py`

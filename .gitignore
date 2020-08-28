@@ -140,3 +140,4 @@ cython_debug/
 
 .DS_Store
 logs/power_reading_2.csv
+.vscode

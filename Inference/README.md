@@ -1,4 +1,4 @@
-## Get power data for Inference
+# Get power data for Inference
 
 `cd Inference`  
 `python multipleRuns.py`
